@@ -1,0 +1,42 @@
+# Pre-order traversal
+def pre_order(node):
+    tree = []
+    if node is None:
+        return tree
+    else:
+        def recurse(node):
+            if node != None:
+                tree.append(node.data)
+                recurse(node.left)
+                recurse(node.right) 
+    recurse(node)
+    return tree
+
+# In-order traversal
+def in_order(node):
+    tree = []
+    if node is None:
+        return tree
+    else:
+        def recurse(node):
+            if node != None:
+                recurse(node.left)
+                tree.append(node.data)
+                recurse(node.right) 
+    recurse(node)
+    return tree
+
+# Post-order traversal
+def post_order(node):
+    tree = []
+    if node is None:
+        return tree
+    else:
+        def recurse(node):
+            if node != None:
+                recurse(node.left)
+                recurse(node.right) 
+                tree.append(node.data)
+    recurse(node)
+    return tree
+
