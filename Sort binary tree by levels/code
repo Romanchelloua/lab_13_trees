@@ -1,0 +1,16 @@
+def tree_by_levels(node):
+    tree = []
+    if node == None:
+        return tree
+    else:
+        tree.append(node.value)
+    q = []
+    while q != [] or node.left != None or node.right != None:
+        if not node.left == None:
+            q.append(node.left)
+        if not node.right == None:
+            q.append(node.right)
+        node = q[0]
+        tree.append(node.value)
+        q.pop(0)
+    return tree
