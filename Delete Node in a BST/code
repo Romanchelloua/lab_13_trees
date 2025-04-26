@@ -1,0 +1,65 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        original_root = root
+        if root is None:
+            return None
+        q = []
+        p_n = None
+        node = root
+        while node is not None:
+            if node.val == key:
+                break
+            if key < node.val:
+                if node.left is not None:
+                    p_n = node
+                    if node.right is not None:
+                        q.append(node.right)
+                    node = node.left
+                else:
+                    break
+            else:
+                if node.right is not None:
+                    p_n = node
+                    if node.left is not None:
+                        q.append(node.left)
+                    node = node.right
+                else:
+                    break
+            if node is None and q:
+                node = q.pop()
+        if node is None or node.val != key:
+            return original_root
+        if node.left is None and node.right is None:
+            if node == original_root:
+                return None
+            if p_n.left == node:
+                p_n.left = None
+            else:
+                p_n.right = None
+        elif node.left is not None and node.right is not None:
+            s_p = node
+            s = node.right
+            while s.left is not None:
+                s_p = s
+                s = s.left
+            node.val = s.val
+            if s_p.left == s:
+                s_p.left = s.right
+            else:
+                s_p.right = s.right
+        else:
+            child = node.left if node.left is not None else node.right
+            if node == original_root:
+                return child
+            if p_n.left == node:
+                p_n.left = child
+            else:
+                p_n.right = child
+        
+        return original_root
